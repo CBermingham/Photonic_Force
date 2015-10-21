@@ -87,6 +87,7 @@ for l in lines:
 	sumsig90.append(float(b[5]))
 	laser90.append(float(b[3]))
 
+print time90[-1]
 
 on_off0 = []
 
@@ -113,7 +114,7 @@ make_highlight_region(ax=ax1, limits = (newtime0[540], newtime0[810]),  axis='x'
 make_highlight_region(ax=ax1, limits = (newtime0[1080], newtime0[1350]),  axis='x')
 make_highlight_region(ax=ax1, limits = (newtime0[1620], newtime0[1890]),  axis='x')
 make_highlight_region(ax=ax1, limits = (newtime0[2160], newtime0[2430]),  axis='x')
-make_highlight_region(ax=ax1, limits = (newtime0[2700], newtime0[-1]),  axis='x')
+make_highlight_region(ax=ax1, limits = (newtime0[2700], newtime0[2970]),  axis='x')
 plt.xlabel('Time / s')
 
 
@@ -153,15 +154,16 @@ for i in range(0, len(laser90)-1):
 	if (laser90[i]>4 and laser90[i+1] <1) or (laser90[i]<1 and laser90[i+1]>4):
 		on_off90.append(i)
 
-
 newtime90 = []
 newpos90 = []
 
-for i in range(1, len(on_off90)-2):
+for i in range(1, len(on_off90)-1):
 	newpos90 = newpos90 + pos90[on_off90[i]+50:on_off90[i+1]]
 for i in range(0, len(newpos90)):
 	newtime90.append(i/640.0)
 newpos90 = [i-np.mean(newpos90) for i in newpos90]
+
+print newtime90[-1]
 
 plt.subplot(3,1,3)
 ax3 = plt.gca()
@@ -172,7 +174,7 @@ make_highlight_region(ax=ax3, limits = (newtime90[540], newtime90[810]),  axis='
 make_highlight_region(ax=ax3, limits = (newtime90[1080], newtime90[1350]),  axis='x')
 make_highlight_region(ax=ax3, limits = (newtime90[1620], newtime90[1890]),  axis='x')
 #make_highlight_region(ax=ax3, limits = (newtime90[2160], newtime90[2430]),  axis='x')
-#make_highlight_region(ax=ax3, limits = (newtime90[2700], newtime90[-1]),  axis='x')
+#	make_highlight_region(ax=ax3, limits = (newtime90[2700], newtime90[-1]),  axis='x')
 plt.xlabel('Time / s')
 
 
