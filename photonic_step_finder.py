@@ -1,13 +1,13 @@
 import csv
-import matplotlib.pyplot as plt
 import numpy as np
 import os
+import Tkinter, tkFileDialog
 
 #Function that reads all the files in the directory 'path'
 #If the filename contains 'y' it reads the position data
 #If the filename contains 'laser' if reads the laser on/off voltage
 #The data from each y file is added into one long list and the same for laser
-def data_reader(path, calibration):
+def find_step(path, calibration):
 	ydata = []
 	laser = []
 	directory = sorted(os.listdir(path))
@@ -23,10 +23,7 @@ def data_reader(path, calibration):
 	                b = line.split()
 	                laser.append(float(b[1]))
 	ydata = [i*calibration*1E9/1311.0 for i in ydata]
-	return ydata, laser
 
-#Function to find the step size
-def find_step(ydata, laser):
 	#Find the positions in the laser data where the laser was switched on and off,
 	#this is where the voltage switched from 100 to 0 (or whatever the voltage is recorded as)
 	#At each on/off point, recoded the index. The indexes are the same for the y and laser data
@@ -50,22 +47,20 @@ def find_step(ydata, laser):
 	#Print this result
 	print "Average step: ", np.mean(step), "nm +/- ", np.std(step)
 
-# ydata1, laser1 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/150946', 3216)
-# find_step(ydata1, laser1)
-# ydata2, laser2 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/151031', 3216)
-# find_step(ydata2, laser2)
-# ydata3, laser3 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/151143', 2167)
-# find_step(ydata3, laser3)
-# ydata4, laser4 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/151221', 2167)
-# find_step(ydata4, laser4)
-# ydata5, laser5 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/151318', 1634)
-# find_step(ydata5, laser5)
-# ydata6, laser6 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/151359', 1634)
-# find_step(ydata6, laser6)
-# ydata7, laser7 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/151512', 1312)
-# find_step(ydata7, laser7)
-ydata8, laser8 = data_reader('/Volumes/LMF_Microscope/1-Data/2015/11_November/05saveddata/151556', 1312)
-find_step(ydata8, laser8)
+root = Tkinter.Tk()
+root.withdraw()
+
+file_path = tkFileDialog.askdirectory()
+cal = float(raw_input('Calibration: '))
+
+find_step(file_path, cal)
+
+
+
+
+
+
+
 
 
 
