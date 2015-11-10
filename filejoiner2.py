@@ -33,7 +33,7 @@ while var == 'y':
 	for l in lines:
 		p = l.split()
 		time.append(float(p[0]))
-		y_pos.append(endtime+float(p[1]))
+		y_pos.append(endtime+float(p[3]))
 	endtime=time[-1]
 	var = raw_input("Add another file? (enter y or n) ")
 

@@ -1,6 +1,6 @@
 Using photonic_step_finder.py
 
-This is a program to find the size of the cantilever displacement when the laser is tuened on
+This is a program to find the size of the cantilever displacement when the laser is turned on
 and off or the polarisation state is modulated. The steps are located by looking at the TTL signal
 of the voltage given to the laser (to turn on and off) or the liquid crystal variable retarder (LCVR) to 
 modulate the polarisation state. This is a square wave, 1 Hz (usually) between 0 and 5 V.
