@@ -30,17 +30,17 @@ def ts_tp_ratio(n_i, theta_i, E_s, E_p):
 	return E_s**2*ts_squared(n_i, theta_i)/(E_p**2*tp_squared(n_i, theta_i)*(2*n_i**2*math.sin(theta_i)**2-1))
 
 def s_intensity(n_i, theta_i, E_s, z, lambda0, phi):
-	gamma=decay_length(theta_i, n_i, lambda0)
+	gamma=1.0/(2.0*decay_length(theta_i, n_i, lambda0))
 	theta_i = theta_i*math.pi/180.0
 	return E_s**2*ts_squared(n_i, theta_i)*math.exp(-2*gamma*z)*(math.sin(phi)**2)
 
 def px_intensity(n_i, theta_i, E_p, z, lambda0, phi):
-	gamma=decay_length(theta_i, n_i, lambda0)
+	gamma=1.0/(2.0*decay_length(theta_i, n_i, lambda0))
 	theta_i = theta_i*math.pi/180.0
 	return E_p**2*tp_squared(n_i, theta_i)*n_i**2*math.sin(theta_i)**2
 
 def pz_intensity(n_i, theta_i, E_p, z, lambda0, phi):
-	gamma=decay_length(theta_i, n_i, lambda0)
+	gamma=1.0/(2.0*decay_length(theta_i, n_i, lambda0))
 	theta_i = theta_i*math.pi/180.0
 	return E_p**2*tp_squared(n_i, theta_i)*(n_i**2*math.sin(theta_i)**2-1)*math.cos(phi)**2
 
@@ -124,7 +124,7 @@ def p_intensity(n_i, theta_i, E_p, z, lambda0, phi):
 n=1.518
 wavelength = 660E-9
 angle_i = 45
-height = 20E-9
+height = 0
 
 y = []
 y2 = []
@@ -143,6 +143,12 @@ plt.legend()
 plt.xlabel('Cantilever orientation angle')
 plt.ylabel('Cantilever response / arbitrary units')
 plt.ylim(ymax = 2.5)
+plt.text(190, 1.75, "E_pz")
+plt.text(100, 0.7, "E_s")
+plt.text(190, 0.8, "E_px")
+plt.annotate('', (180, min(y4)), (180, max(y4)), arrowprops={'arrowstyle':'<->'})
+plt.annotate('', (90, 0), (90, max(y)), arrowprops={'arrowstyle':'<->'})
+plt.annotate('', (180, 0), (180, min(y4)), arrowprops={'arrowstyle':'<->'})
 plt.show()
 
 
