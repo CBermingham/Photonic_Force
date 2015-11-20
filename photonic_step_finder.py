@@ -12,17 +12,12 @@ def find_step(path, calibration):
 	laser = []
 	directory = sorted(os.listdir(path))
 	for filename in directory:
-	    if 'y' in filename:
 	        with open(path + '/' + filename) as f:
 	            for line in f:
 	            	b = line.split()
-	                ydata.append(float(b[9]))
-	    if 'laser' in filename:
-	        with open(path + '/' + filename) as f:
-	            for line in f:
-	                b = line.split()
-	                laser.append(float(b[1]))
-	ydata = [i*calibration*1E9/1311.0 for i in ydata]
+	                ydata.append(float(b[1]))
+	                laser.append(float(b[4]))
+	ydata = [i*calibration*1E9 for i in ydata]
 
 	#Find the positions in the laser data where the laser was switched on and off,
 	#this is where the voltage switched from 100 to 0 (or whatever the voltage is recorded as)
