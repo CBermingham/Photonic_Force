@@ -15,7 +15,7 @@ def find_step(path, calibration):
 	        with open(path + '/' + filename) as f:
 	            for line in f:
 	            	b = line.split()
-	                ydata.append(float(b[1]))
+	                ydata.append(float(b[2]))
 	                laser.append(float(b[4]))
 	ydata = [i*calibration*1E9 for i in ydata]
 
@@ -41,6 +41,7 @@ def find_step(path, calibration):
 	#Find the average of all steps and the standard deviation
 	#Print this result
 	print "Average step: ", np.mean(step), "nm +/- ", np.std(step)
+	print path
 
 root = Tkinter.Tk()
 root.withdraw()

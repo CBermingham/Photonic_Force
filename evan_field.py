@@ -11,16 +11,16 @@ distance = []
 intensity = []
 error = []
 
-with open('exp_field.csv', 'rb') as f:
+with open('evan_field_data.csv', 'rb') as f:
 	reader = csv.reader(f, None)
 	for row in reader:
 		distance.append(float(row[0]))
 		intensity.append(float(row[1]))
 		error.append(float(row[2]))
 
-intensity2 = [i*100/384.73 for i in intensity]
+intensity = [i*100/325.7 for i in intensity]
 
-ylog = [np.log(i) for i in intensity2]
+ylog = [np.log(i) for i in intensity]
 popt, pcov = curve_fit(func, distance, ylog)
 
 print popt
@@ -30,16 +30,15 @@ x=range(1000)
 x=[i*max(distance)/1000 for i in x]
 fit = [popt[0]*np.exp(-i/popt[1]) for i in x]
 
-plt.errorbar(distance, intensity2, yerr=error, fmt='o', label = 'experiment', color = 'lightseagreen', markersize=3)
-plt.plot(x, fit, label = 'exponential fitting', color = 'purple')
-plt.yscale('log')
-plt.ylabel('Intensity of the field (a.u.)')
-plt.xlabel('Distance from the interface (nm)')
-plt.ylim(ymin = 20, ymax = 100)
-plt.minorticks_on()
-plt.yticks([20, 30, 50, 70, 100], ['20', '30', '50', '70', '100'])
+plt.errorbar(distance, intensity, yerr=error, fmt='o', label = 'experiment', color = 'r', markersize=3)
+plt.plot(x, fit, label = 'exponential fitting', color = 'b')
+plt.ylabel('Intensity of the field / a.u.')
+plt.xlabel('Distance above sample / nm')
+#plt.ylim(ymin = 20, ymax = 100)
+#plt.minorticks_on()
+#plt.yticks([20, 30, 50, 70, 100], ['20', '30', '50', '70', '100'])
 leg = plt.legend()
 leg.get_frame().set_edgecolor('white')
-plt.savefig('exp_field.pdf')
+plt.savefig('evan_field.pdf')
 
 plt.show()

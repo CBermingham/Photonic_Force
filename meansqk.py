@@ -14,6 +14,6 @@ for l in lines:
 mean=np.mean(y)
 ysq = [(i-mean)**2 for i in y]
 meansq = np.mean(ysq)
-k = 1.38064852E-23*291/meansq
+k = 1.38064852E-23*290/meansq
 print k
 
