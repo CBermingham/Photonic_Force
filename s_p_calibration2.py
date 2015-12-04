@@ -4,9 +4,11 @@ import math
 from scipy.optimize import curve_fit
 import numpy as np
 
-def func(x, A, B, C):
-#	return np.log(A)-x/d
-	return A+B*np.cos(C*x*np.pi/180.0)
+def func_s(x, A, B, C):
+	return A**2+A*np.cos(2*x*np.pi/180.0)**2
+
+def func_p(x, A, B, C):
+	return A*np.sin(2*x*np.pi/180.0)**2
 
 angle = []
 pdata = []
@@ -23,13 +25,13 @@ angle = np.asarray(angle)
 pdata = np.asarray(pdata)
 sdata = np.asarray(sdata)
 
-poptp, pcovp = curve_fit(func, angle, pdata)
-popts, pcovs = curve_fit(func, angle, sdata)
+poptp, pcovp = curve_fit(func_p, angle, pdata)
+popts, pcovs = curve_fit(func_s, angle, sdata)
 
 x=range(1000)
 x=[i/6.25-80 for i in x]
-y1 = [popts[0]+popts[1]*math.cos(popts[2]*i*math.pi/180) for i in x]
-y2 = [poptp[0]+poptp[1]*math.cos(poptp[2]*i*math.pi/180) for i in x]
+y1 = [popts[0]**2+popts[0]*math.cos(2*i*math.pi/180)**2 for i in x]
+y2 = [poptp[0]*math.sin(2*i*math.pi/180)**2 for i in x]
 
 print popts
 print poptp
@@ -43,5 +45,5 @@ plt.ylim(ymin=0, ymax=3.5)
 plt.xlabel('QWP angle (degrees)')
 plt.ylabel('Power / mW')
 plt.legend()
-plt.savefig('s_p_calibration.pdf')
+plt.savefig('s_p_calibration2.pdf')
 plt.show()
