@@ -4,10 +4,10 @@ import math
 from scipy.optimize import curve_fit
 import numpy as np
 
-def func_s(x, A, B, C):
-	return A**2+A*np.cos(2*x*np.pi/180.0)**2
+def func_s(x, A):
+	return A+A*np.cos(2*x*np.pi/180.0)**2
 
-def func_p(x, A, B, C):
+def func_p(x, A):
 	return A*np.sin(2*x*np.pi/180.0)**2
 
 angle = []
@@ -30,7 +30,7 @@ popts, pcovs = curve_fit(func_s, angle, sdata)
 
 x=range(1000)
 x=[i/6.25-80 for i in x]
-y1 = [popts[0]**2+popts[0]*math.cos(2*i*math.pi/180)**2 for i in x]
+y1 = [popts[0]+popts[0]*math.cos(2*i*math.pi/180)**2 for i in x]
 y2 = [poptp[0]*math.sin(2*i*math.pi/180)**2 for i in x]
 
 print popts
