@@ -28,8 +28,8 @@ sdata = np.asarray(sdata)
 poptp, pcovp = curve_fit(func_p, angle, pdata)
 popts, pcovs = curve_fit(func_s, angle, sdata)
 
-x=range(1000)
-x=[i/6.25-80 for i in x]
+x =range(1000)
+x =[i/6.25-80 for i in x]
 y1 = [popts[0]+popts[0]*math.cos(2*i*math.pi/180)**2 for i in x]
 y2 = [poptp[0]*math.sin(2*i*math.pi/180)**2 for i in x]
 
@@ -43,7 +43,7 @@ plt.plot(x, y1, color = 'r', label = 's-pol fit')
 plt.xlim(xmin=-80, xmax = 80)
 plt.ylim(ymin=0, ymax=3.5)
 plt.xlabel('QWP angle (degrees)')
-plt.ylabel('Power / mW')
+plt.ylabel('Power (mW)')
 plt.legend()
 plt.savefig('s_p_calibration2.pdf')
 plt.show()
