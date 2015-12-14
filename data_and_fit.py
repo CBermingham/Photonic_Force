@@ -47,11 +47,13 @@ def total_fit(Q, A, B, C, D):
 def fit_data(filename):
 	angle = []
 	data = []
+	error = []
 	with open(filename, 'rb') as f:
 		reader = csv.reader(f, None)
 		for row in reader:
 			angle.append(float(row[0]))
 			data.append(float(row[1]))
+			error.append(float(row[2]))
 
 	angle2 = angle[:9]
 	for i in angle[10:]:
@@ -75,17 +77,19 @@ def fit_data(filename):
 	fit_sigma = [sigma(i, popt[0]) for i in x]
 	fit_chi = [chi(i, popt[1]) for i in x]
 
-	return angle, data, x, fit, popt, fit_sigma, fit_chi
+	return angle, data, x, fit, popt, fit_sigma, fit_chi, error
 
 def fit_data_even(filename):
 	angle = []
 	data = []
+	error = []
 
 	with open(filename, 'rb') as f:
 		reader = csv.reader(f, None)
 		for row in reader:
 			angle.append(float(row[0]))
 			data.append(float(row[1]))
+			error.append(float(row[2]))
 
 	angle2 = angle[:9]
 	for i in angle[10:]:
@@ -106,17 +110,19 @@ def fit_data_even(filename):
 
 	x = [i*np.pi/180.0 for i in x]
 	fit = [even(i, popt[0], popt[1]) for i in x]
-	return angle, data, x, fit, popt
+	return angle, data, x, fit, popt, error
 
 def fit_data_total(filename):
 	angle = []
 	data = []
+	error = []
 
 	with open(filename, 'rb') as f:
 		reader = csv.reader(f, None)
 		for row in reader:
 			angle.append(float(row[0]))
 			data.append(float(row[1]))
+			error.append(float(row[2]))
 
 	angle2 = angle[:9]
 	for i in angle[10:]:
@@ -137,63 +143,108 @@ def fit_data_total(filename):
 
 	x = [i*np.pi/180.0 for i in x]
 	fit = [total_fit(i, popt[0], popt[1], popt[2], popt[3]) for i in x]
-	return angle, data, x, fit, popt
+	return angle, data, x, fit, popt, error
 
-angle01odd, data01odd, x01odd, fit01odd, popt01odd, fit_sigma01odd, fit_chi01odd = fit_data('data01odd.csv')
-angle02odd, data02odd, x02odd, fit02odd, popt02odd, fit_sigma02odd, fit_chi02odd = fit_data('data02odd.csv')
-angle03odd, data03odd, x03odd, fit03odd, popt03odd, fit_sigma03odd, fit_chi03odd = fit_data('data03odd.csv')
-angle1801odd, data1801odd, x1801odd, fit1801odd, popt1801odd, fit_sigma1801odd, fit_chi1801odd = fit_data('data1801odd.csv')
-angle1802odd, data1802odd, x1802odd, fit1802odd, popt1802odd, fit_sigma1802odd, fit_chi1802odd = fit_data('data1802odd.csv')
-angle1803odd, data1803odd, x1803odd, fit1803odd, popt1803odd, fit_sigma1803odd, fit_chi1803odd = fit_data('data1803odd.csv')
+def odd_plot(angle, data, x, fit, fit_sigma, fit_chi, error, fig_name):
+	angle= [i*180/np.pi for i in angle]
+	x = [i*180/np.pi for i in x]
+	p1 = plt.errorbar(angle, data, yerr=error, fmt='o', color ='darkviolet', markersize=3)
+	p2, = plt.plot(x, fit, color ='darkviolet')
+	p3, = plt.plot(x, fit_sigma, color = 'darkturquoise', linestyle = '--')
+	p4, = plt.plot(x, fit_chi, color = 'cornflowerblue', linestyle = ':')
+	plt.xlabel('Quarter waveplate orientation $\phi$ ($\degree$)', labelpad=8)
+	plt.ylabel('Force (pN)')
+	leg1 = plt.legend([p1, p2], ["experiment", "fit"], loc=2, framealpha=0)
+	leg1.get_frame().set_edgecolor('white')
+	plt.gca().add_artist(leg1)
+	leg2 = plt.legend([p3, p4], ['$\sigma$ contribution','$\chi$ contribution'], loc = 4, framealpha=0)
+	leg2.get_frame().set_edgecolor('white')
+	fig = plt.gcf()
+	fig.set_size_inches(8, 5)
+	plt.xticks(np.arange(-100, 110, 20))
+	plt.savefig(fig_name)
+	plt.clf()
 
-angle1801even, data1801even, x1801even, fit1801even, popt1801even = fit_data_even('data1801even.csv')
-angle01even, data01even, x01even, fit01even, popt01even = fit_data_even('data01even.csv')
-angle1802even, data1802even, x1802even, fit1802even, popt1802even = fit_data_even('data1802even.csv')
-angle02even, data02even, x02even, fit02even, popt02even = fit_data_even('data02even.csv')
-angle1803even, data1803even, x1803even, fit1803even, popt1803even = fit_data_even('data1803even.csv')
-angle03even, data03even, x03even, fit03even, popt03even = fit_data_even('data03even.csv')
+def even_plot(angle, data, x, fit, error, fig_name, pos, max_y):
+	angle= [i*180/np.pi for i in angle]
+	x = [i*180/np.pi for i in x]
+	p1 = plt.errorbar(angle, data, yerr=error, fmt='o', color ='teal', markersize=3)
+	p2, = plt.plot(x, fit, color ='teal')
+	plt.xlabel('Quarter waveplate orientation $\phi$ ($\degree$)', labelpad=8)
+	plt.ylabel('Force (pN)')
+	if '180' in fig_name:
+		leg1 = plt.legend([p1, p2], ["experiment", "fit"], bbox_to_anchor=(pos, 1), framealpha=0)
+		leg1.get_frame().set_edgecolor('white')
+		plt.gca().add_artist(leg1)
+	else:
+		leg2 = plt.legend([p1, p2], ["experiment", "fit"], loc=2, framealpha=0)
+		leg2.get_frame().set_edgecolor('white')
+		plt.gca().add_artist(leg2)
+	fig = plt.gcf()
+	fig.set_size_inches(8, 5)
+	plt.xticks(np.arange(-100, 110, 20))
+	plt.ylim(ymax = max_y)
+	plt.savefig(fig_name)
+	plt.clf()
 
-angle01, data01, x01, fit01, popt01 = fit_data_total('data01.csv')
-angle02, data02, x02, fit02, popt02 = fit_data_total('data02.csv')
-angle03, data03, x03, fit03, popt03 = fit_data_total('data03.csv')
-angle1801, data1801, x1801, fit1801, popt1801 = fit_data_total('data1801.csv')
-angle1802, data1802, x1802, fit1802, popt1802 = fit_data_total('data1802.csv')
-angle1803, data1803, x1803, fit1803, popt1803 = fit_data_total('data1803.csv')
+def total_plot(angle, data, x, fit, error, fig_name, pos, max_y, min_y):
+	angle= [i*180/np.pi for i in angle]
+	x = [i*180/np.pi for i in x]
+	p1 = plt.errorbar(angle, data, yerr=error, fmt='o', color ='salmon', markersize=3)
+	p2, = plt.plot(x, fit, color ='salmon')
+	plt.xlabel('Quarter waveplate orientation $\phi$ ($\degree$)', labelpad=8)
+	plt.ylabel('Force (pN)')
+	leg1 = plt.legend([p1, p2], ["experiment", "fit"], loc=pos, framealpha=0)
+	leg1.get_frame().set_edgecolor('white')
+	plt.gca().add_artist(leg1)
+	fig = plt.gcf()
+	fig.set_size_inches(8, 5)
+	plt.xticks(np.arange(-100, 110, 20))
+	plt.ylim(ymax = max_y, ymin = min_y)
+	plt.savefig(fig_name)
+	plt.clf()
 
-angle01odd = [i*180/np.pi for i in angle01odd]
-x01odd = [i*180/np.pi for i in x01odd]
+angle01odd, data01odd, x01odd, fit01odd, popt01odd, fit_sigma01odd, fit_chi01odd, error01odd = fit_data('data01odd.csv')
+angle02odd, data02odd, x02odd, fit02odd, popt02odd, fit_sigma02odd, fit_chi02odd, error02odd = fit_data('data02odd.csv')
+angle03odd, data03odd, x03odd, fit03odd, popt03odd, fit_sigma03odd, fit_chi03odd, error03odd = fit_data('data03odd.csv')
+angle1801odd, data1801odd, x1801odd, fit1801odd, popt1801odd, fit_sigma1801odd, fit_chi1801odd, error1801odd = fit_data('data1801odd.csv')
+angle1802odd, data1802odd, x1802odd, fit1802odd, popt1802odd, fit_sigma1802odd, fit_chi1802odd, error1802odd = fit_data('data1802odd.csv')
+angle1803odd, data1803odd, x1803odd, fit1803odd, popt1803odd, fit_sigma1803odd, fit_chi1803odd, error1803odd = fit_data('data1803odd.csv')
 
-p1 = plt.scatter(angle01odd, data01odd, color ='r', label = "experiment")
-p2 = plt.plot(x01odd, fit01odd, color ='r', label ="fit")
-p3 = plt.plot(x01odd, fit_sigma01odd, 'r--', label = '$\sigma$ contribution')
-p4 = plt.plot(x01odd, fit_chi01odd, 'r:', label = '$\chi$ contribution')
-plt.xlabel('Quarter waveplate orientation $\phi$ ($\degree$)')
-plt.legend([p2, p1], ["line 2", "line 1"])
-# plt.scatter(angle02odd, data02odd, color = 'g')
-# plt.plot(x02odd, fit02odd, color = 'g')
-# plt.scatter(angle03odd, data03odd, color = 'b')
-# plt.plot(x03odd, fit03odd, color = 'b')
+angle1801even, data1801even, x1801even, fit1801even, popt1801even, error1801 = fit_data_even('data1801even.csv')
+angle01even, data01even, x01even, fit01even, popt01even, error01 = fit_data_even('data01even.csv')
+angle1802even, data1802even, x1802even, fit1802even, popt1802even, error1802 = fit_data_even('data1802even.csv')
+angle02even, data02even, x02even, fit02even, popt02even, error02 = fit_data_even('data02even.csv')
+angle1803even, data1803even, x1803even, fit1803even, popt1803even, error1803 = fit_data_even('data1803even.csv')
+angle03even, data03even, x03even, fit03even, popt03even, error03 = fit_data_even('data03even.csv')
 
-# plt.scatter(angle1801odd, data1801odd, color = 'g')
-# plt.plot(x1801odd, fit1801odd, label = '1801odd', color = 'g')
-# plt.scatter(angle1802odd, data1802odd, color = 'g')
-# plt.plot(x1802odd, fit1802odd, label = '1802odd', color = 'g')
-# plt.scatter(angle1803odd, data1803odd, color = 'g')
-# plt.plot(x1803odd, fit1803odd, label = '1803odd', color = 'g')
+angle01, data01, x01, fit01, popt01, error01 = fit_data_total('data01.csv')
+angle02, data02, x02, fit02, popt02, error02 = fit_data_total('data02.csv')
+angle03, data03, x03, fit03, popt03, error03 = fit_data_total('data03.csv')
+angle1801, data1801, x1801, fit1801, popt1801, error1801 = fit_data_total('data1801.csv')
+angle1802, data1802, x1802, fit1802, popt1802, error1802 = fit_data_total('data1802.csv')
+angle1803, data1803, x1803, fit1803, popt1803, error1803 = fit_data_total('data1803.csv')
 
-# plt.scatter(angle01even, data01even, color = 'b')
-# plt.plot(x01even, fit01even, label = '01even', color = 'b')
-# plt.scatter(angle02even, data02even, color = 'b')
-# plt.plot(x02even, fit02even, label = '01even', color = 'b')
-# plt.scatter(angle03even, data03even, color = 'b')
-# plt.plot(x03even, fit03even, label = '01even', color = 'b')
+odd_plot(angle01odd, data01odd, x01odd, fit01odd, fit_sigma01odd, fit_chi01odd, error01odd, '01odd.pdf')
+odd_plot(angle02odd, data02odd, x02odd, fit02odd, fit_sigma02odd, fit_chi02odd, error02odd, '02odd.pdf')
+odd_plot(angle03odd, data03odd, x03odd, fit03odd, fit_sigma03odd, fit_chi03odd, error03odd, '03odd.pdf')
+odd_plot(angle1801odd, data1801odd, x1801odd, fit1801odd, fit_sigma1801odd, fit_chi1801odd, error1801odd, '1801odd.pdf')
+odd_plot(angle1802odd, data1802odd, x1802odd, fit1802odd, fit_sigma1802odd, fit_chi1802odd, error1802odd, '1802odd.pdf')
+odd_plot(angle1803odd, data1803odd, x1803odd, fit1803odd, fit_sigma1803odd, fit_chi1803odd, error1803odd, '1803odd.pdf')
 
-# plt.scatter(angle1801even, data1801even, color = 'b')
-# plt.plot(x1801even, fit1801even, label = '01even', color = 'b')
-# plt.scatter(angle1802even, data1802even, color = 'b')
-# plt.plot(x1802even, fit1802even, label = '01even', color = 'b')
-# plt.scatter(angle1803even, data1803even, color = 'b')
-# plt.plot(x1803even, fit1803even, label = '01even', color = 'b')
+even_plot(angle1801even, data1801even, x1801even, fit1801even, error1801, '1801even.pdf', 0.44, 0)
+even_plot(angle1802even, data1802even, x1802even, fit1802even, error1802, '1802even.pdf', 0.44, 0)
+even_plot(angle1803even, data1803even, x1803even, fit1803even, error1803, '1803even.pdf', 0.44, 0)
+even_plot(angle01even, data01even, x01even, fit01even, error01, '01even.pdf', 0.67, 5)
+even_plot(angle02even, data02even, x02even, fit02even, error02, '02even.pdf', 0.67, 5)
+even_plot(angle03even, data03even, x03even, fit03even, error03, '03even.pdf', 0.67, 5)
+
+total_plot(angle01, data01, x01, fit01, error01, '01total.pdf', 2, 5, 0)
+total_plot(angle02, data02, x02, fit02, error02, '02total.pdf', 2, 5, 0)
+total_plot(angle02, data03, x03, fit03, error03, '03total.pdf', 2, 5, 0)
+total_plot(angle1801, data1801, x1801, fit1801, error1801, '1801total.pdf', 4, 0, -3)
+total_plot(angle1802, data1802, x1802, fit1802, error1802, '1802total.pdf', 4, 0, -2.5)
+total_plot(angle1803, data1803, x1803, fit1803, error1803, '1803total.pdf', 4, 0, -2.5)
 
 # plt.scatter(angle01, data01, color = 'r')
 # plt.plot(x01, fit01, label = '01', color = 'r')
@@ -209,6 +260,6 @@ plt.legend([p2, p1], ["line 2", "line 1"])
 # plt.scatter(angle1803, data1803, color = 'r')
 # plt.plot(x1803, fit1803, label = '03', color = 'r')
 
-plt.show()
+
 
 
