@@ -11,7 +11,7 @@ distance = []
 intensity = []
 error = []
 
-with open('evan_field_data.csv', 'rb') as f:
+with open('exp_field.csv', 'rb') as f:
 	reader = csv.reader(f, None)
 	for row in reader:
 		distance.append(float(row[0]))
@@ -39,6 +39,6 @@ plt.xlabel('Distance above sample / nm')
 #plt.yticks([20, 30, 50, 70, 100], ['20', '30', '50', '70', '100'])
 leg = plt.legend()
 leg.get_frame().set_edgecolor('white')
-plt.savefig('evan_field.pdf')
+#plt.savefig('evan_field.pdf')
 
 plt.show()
