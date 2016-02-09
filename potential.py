@@ -23,42 +23,42 @@ displacement4 = []
 displacement5 = []
 displacement6 = []
 
-f = open('190915', 'rU')
+f = open('/Volumes/LMF_Microscope/1-Data/2015/7_July/27_files/190915', 'rU')
 lines=f.readlines()
 f.close()
 for l in lines:
 	b = l.split()
 	displacement1.append(float(b[9]))
 
-f = open('190951', 'rU')
+f = open('/Users/Charlotte/Documents/Code/Photonic_Force/27_files/190951', 'rU')
 lines=f.readlines()
 f.close()
 for l in lines:
 	b = l.split()
 	displacement2.append(float(b[9]))
 
-f = open('191026', 'rU')
+f = open('/Users/Charlotte/Documents/Code/Photonic_Force/27_files/191026', 'rU')
 lines=f.readlines()
 f.close()
 for l in lines:
 	b = l.split()
 	displacement3.append(float(b[9]))
 
-f = open('191100', 'rU')
+f = open('/Users/Charlotte/Documents/Code/Photonic_Force/27_files/191100', 'rU')
 lines=f.readlines()
 f.close()
 for l in lines:
 	b = l.split()
 	displacement4.append(float(b[9]))
 
-f = open('191131', 'rU')
+f = open('/Users/Charlotte/Documents/Code/Photonic_Force/27_files/191131', 'rU')
 lines=f.readlines()
 f.close()
 for l in lines:
 	b = l.split()
 	displacement5.append(float(b[9]))
 
-f = open('191205', 'rU')
+f = open('/Users/Charlotte/Documents/Code/Photonic_Force/27_files/191205', 'rU')
 lines=f.readlines()
 f.close()
 for l in lines:

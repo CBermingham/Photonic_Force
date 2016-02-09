@@ -73,24 +73,31 @@ with open('intensity_with_height_0_p.csv', 'rb') as f:
 		error_int_6p.append(float(row[2]))
 
 ylog_p = [np.log(i) for i in force_p]
+error_p = [error_p[i]/ylog_p[i] for i in range(0, len(error_p))]
 popt_p, pcov_p = curve_fit(func, distance, ylog_p)
 
 ylog_s = [np.log(i) for i in force_s]
+error_s = [error_s[i]/ylog_s[i] for i in range(0, len(error_s))]
 popt_s, pcov_s = curve_fit(func, distance, ylog_s)
 
 ylog_p2 = [np.log(i) for i in force_p2]
+error_p2 = [error_p2[i]/ylog_p2[i] for i in range(0, len(error_p2))]
 popt_p2, pcov_p2 = curve_fit(func, distance2, ylog_p2)
 
 ylog_s_int = [np.log(i) for i in intensity_s]
+error_int_s = [error_int_s[i]/ylog_s_int[i] for i in range(0, len(error_int_s))]
 popt_s_int, pcov_s_int = curve_fit(func, distance3, ylog_s_int)
 
 ylog_p_int = [np.log(i) for i in intensity_p]
+error_int_p = [error_int_p[i]/ylog_p_int[i] for i in range(0, len(error_int_p))]
 popt_p_int, pcov_p_int = curve_fit(func, distance4, ylog_p_int)
 
 ylog_5s_int = [np.log(i) for i in intensity_5s]
+error_int_5s = [error_int_5s[i]/ylog_5s_int[i] for i in range(0, len(error_int_5s))]
 popt_5s_int, pcov_5s_int = curve_fit(func, distance5, ylog_5s_int)
 
 ylog_6p_int = [np.log(i) for i in intensity_6p]
+error_int_6p = [error_int_6p[i]/ylog_6p_int[i] for i in range(0, len(error_int_6p))]
 popt_6p_int, pcov_6p_int = curve_fit(func, distance6, ylog_6p_int)
 
 x=range(1000)
@@ -126,23 +133,23 @@ print 'Intensity 90 p', popt_p_int
 print 'Intensity 0 s', popt_5s_int
 print 'Intensity 0 p', popt_6p_int
 
-plt.errorbar(distance, ylog_p, yerr=error_p, fmt='o', label = 'p recent', color = 'b', markersize=3)
-plt.plot(x, fit_p, color = 'b')
-plt.errorbar(distance, ylog_s, yerr=error_s, fmt='o', label = 's recent', color = 'r', markersize=3)
-plt.plot(x, fit_s, color = 'r')
-plt.errorbar(distance2, ylog_p2, yerr=error_p2, fmt='o', label = 'p from spin experiment', color = 'g', markersize=3)
-plt.plot(x2, fit_p2, color = 'g')
-plt.errorbar(distance3, ylog_s_int, yerr=error_int_s, fmt='o', label = 'intensity s recent', color = 'c', markersize=3)
+# plt.errorbar(distance, ylog_p, yerr=error_p, fmt='o', label = 'p recent', color = 'b', markersize=3)
+# plt.plot(x, fit_p, color = 'b')
+# plt.errorbar(distance, ylog_s, yerr=error_s, fmt='o', label = 's recent', color = 'r', markersize=3)
+# plt.plot(x, fit_s, color = 'r')
+# plt.errorbar(distance2, ylog_p2, yerr=error_p2, fmt='o', label = 'p from spin experiment', color = 'g', markersize=3)
+# plt.plot(x2, fit_p2, color = 'g')
+plt.errorbar(distance3, ylog_s_int, yerr=error_int_s, fmt='o', label = 'intensity s 90', color = 'c', markersize=3)
 plt.plot(x3, fit_s_int, color = 'g')
-plt.errorbar(distance4, ylog_p_int, yerr=error_int_p, fmt='o', label = 'intensity p recent', color = 'm', markersize=3)
+plt.errorbar(distance4, ylog_p_int, yerr=error_int_p, fmt='o', label = 'intensity p 90', color = 'm', markersize=3)
 plt.plot(x4, fit_p_int, color = 'm')
-plt.errorbar(distance5, ylog_5s_int, yerr=error_int_5s, fmt='o', label = 'intensity s 0 recent', color = 'm', markersize=3)
-plt.plot(x5, fit_5s_int, color = 'm')
-plt.errorbar(distance6, ylog_6p_int, yerr=error_int_6p, fmt='o', label = 'intensity p 0 recent', color = 'm', markersize=3)
-plt.plot(x6, fit_6p_int, color = 'm')
+# plt.errorbar(distance5, ylog_5s_int, yerr=error_int_5s, fmt='o', label = 'intensity s 0', color = 'r', markersize=3)
+# plt.plot(x5, fit_5s_int, color = 'r')
+# plt.errorbar(distance6, ylog_6p_int, yerr=error_int_6p, fmt='o', label = 'intensity p 0', color = 'b', markersize=3)
+# plt.plot(x6, fit_6p_int, color = 'b')
 plt.ylabel('ln(Displacement)/ln(Intensity)')
 plt.xlabel('Distance above sample / nm')
 leg = plt.legend()
 leg.get_frame().set_edgecolor('white')
-plt.savefig('force_with_height_and_intensity.pdf')
+plt.savefig('intensity_with_height.pdf')
 plt.show()
