@@ -4,6 +4,9 @@ import matplotlib.mlab as mlab
 from scipy.optimize import curve_fit
 import math
 
+def gaussian(x, mean, sd):
+	val = np.exp(-(x-mean)**2/(2*sd**2))
+	return val
 
 #Read in position data
 displacement1 = []
@@ -32,16 +35,30 @@ V=[-math.log(i) for i in y_1]
 bins_1=[i*1E9 for i in bins_1]
 bins_1 = bins_1[:-1]
 
+#for a non-symmetric gaussian, fitting for mean and std
+popt, pcov = curve_fit(gaussian, bins_1, y_1)
+fit = [gaussian(i, popt[0], popt[1]) for i in bins_1]
+print popt
+
+#Using mean and std from data
+m= 0
+std= np.std(displacement1)*10**9
+fit2 = [gaussian(i, m, std) for i in bins_1]
+V_fit=[-math.log(i) for i in fit2]
+
 #plot histogram
 plt.subplot(2,1,1)
 plt.bar(bins_1, y_1)
+plt.plot(bins_1, fit2)
 plt.ylabel("Probability density")
 
 #plot potential
 plt.subplot(2,1,2)
 plt.plot(bins_1, V)
+plt.plot(bins_1, V_fit)
 plt.xlabel("Displacement / nm")
 plt.ylabel("Potantial Energy / $k_BT$ J")
 plt.ylim(ymin = 0, ymax = 10)
-#plt.savefig('190915.pdf')
+plt.xlim(xmin = -80, xmax = 80)
+plt.savefig('190915.pdf')
 plt.show()
