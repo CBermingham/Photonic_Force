@@ -53,7 +53,7 @@ V=[-math.log(i) for i in y_1]
 
 
 popt1, pcov1 = curve_fit(harmonic_potential, bins_1, V)
-print "k from potential fit =", popt1[0]*1.38064852E-5*290, "N/m"
+print "k from potential fit =", popt1[0]*1.38064852E-14*290, "N/m"
 
 
 # Extra potential form a constant force
