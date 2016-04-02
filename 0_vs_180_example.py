@@ -81,15 +81,4 @@ plt.ylabel('Displacement / nm')
 # plt.ylabel('180 degrees \n Displacement / nm')
 # plt.xlim(xmin = 0, xmax = 5)
 
-
-
-
-
-
-
-
-
-
-
-
 plt.show()

@@ -99,57 +99,61 @@ def p_intensity(n_i, theta_i, E_p, z, lambda0, phi):
 
 # plt.show()
 
-
-# x=range(0, 9000)
-# x=[i/100.0 for i in x]
-# Is = []
-# Ip = []
-# for i in x:
-# 	Is.append(ts_squared(n, i))
-# 	Ip.append(tp_squared(n, i))
-
-# print crit_angle(n)
-
-# plt.plot(x, Is, label = '|ts|^2')
-# plt.plot(x, Ip, label = '|tp|^2')
-# plt.axvline(crit_angle(n), 0, 1)
-# plt.legend()
-# plt.xlabel('Angle of incidence / degrees')
-# plt.ylabel('$|t^{s/p}|^2$')
-
-# plt.show()
-
-
-
 n=1.518
 wavelength = 660E-9
 angle_i = 45
 height = 0
 
-y = []
-y2 = []
-y3 = []
-y4 = []
-x=range(0, 360)
+x=range(0, 9000)
+x=[i/100.0 for i in x]
+Is = []
+Ip = []
 for i in x:
-	y.append(s_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
-	y2.append(px_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
-	y3.append(pz_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
-	y4.append(p_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
+	Is.append(ts_squared(n, i))
+	Ip.append(tp_squared(n, i))
 
-plt.plot(x, y, label = 's polarised incident light')
-plt.plot(x, y4, label = 'p polarised incident light')
+print crit_angle(n)
+
+plt.plot(x, Is, label = 's-polarised', color = 'm', linewidth = 2)
+plt.plot(x, Ip, label = 'p-polarised', color = 'c', linewidth = 2)
+plt.axvline(crit_angle(n), 0, 1, color = 'k', linewidth = 1, linestyle = '--')
 plt.legend()
-plt.xlabel('Cantilever orientation angle')
-plt.ylabel('Cantilever response / arbitrary units')
-plt.ylim(ymax = 2.5)
-plt.text(190, 1.75, "E_pz")
-plt.text(100, 0.7, "E_s")
-plt.text(190, 0.8, "E_px")
-plt.annotate('', (180, min(y4)), (180, max(y4)), arrowprops={'arrowstyle':'<->'})
-plt.annotate('', (90, 0), (90, max(y)), arrowprops={'arrowstyle':'<->'})
-plt.annotate('', (180, 0), (180, min(y4)), arrowprops={'arrowstyle':'<->'})
+plt.xlabel('Angle of incidence / degrees', fontsize = 14)
+plt.ylabel('$I_t(x=0)$ / $I_i(x=0)$', fontsize = 14)
+plt.xticks(size = 14)
+plt.yticks(size = 14)
+plt.savefig('Intensity_ratio_at_interface.pdf')
+
 plt.show()
+
+
+
+
+
+# y = []
+# y2 = []
+# y3 = []
+# y4 = []
+# x=range(0, 360)
+# for i in x:
+# 	y.append(s_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
+# 	y2.append(px_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
+# 	y3.append(pz_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
+# 	y4.append(p_intensity(n, angle_i, 1, height, wavelength, i*math.pi/180.0))
+
+# plt.plot(x, y, label = 's polarised incident light')
+# plt.plot(x, y4, label = 'p polarised incident light')
+# plt.legend()
+# plt.xlabel('Cantilever orientation angle')
+# plt.ylabel('Cantilever response / arbitrary units')
+# plt.ylim(ymax = 2.5)
+# plt.text(190, 1.75, "E_pz")
+# plt.text(100, 0.7, "E_s")
+# plt.text(190, 0.8, "E_px")
+# plt.annotate('', (180, min(y4)), (180, max(y4)), arrowprops={'arrowstyle':'<->'})
+# plt.annotate('', (90, 0), (90, max(y)), arrowprops={'arrowstyle':'<->'})
+# plt.annotate('', (180, 0), (180, min(y4)), arrowprops={'arrowstyle':'<->'})
+# plt.show()
 
 
 

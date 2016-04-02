@@ -41,6 +41,9 @@ def Shighf(f, k, gamma):
 # 	f.append(sample_rate/N*i)
 
 # plt.plot(f[0: 100000], power_spectrum[0: 100000])
+# plt.xscale('log')
+# plt.yscale('log')
+# plt.show()
 
 k = 3E-5
 gamma = 2E-9
@@ -56,10 +59,16 @@ print "corner frequency:", corner_freq
 
 plt.plot(f, S, color = 'indigo')
 plt.plot(f, S0, linestyle = "--", color = 'darkturquoise')
-plt.plot(f[2000:], Shighf[2000:], linestyle = "--", color = 'mediumorchid')
+plt.plot(f, Shighf, linestyle = "--", color = 'limegreen')
 plt.axvline(corner_freq, linestyle = "--", color = 'mediumslateblue')
-plt.xlabel("Frequency (Hz)")
-plt.ylabel("Power Spectral Density (m$^2$/ Hz)")
+plt.xlabel("Frequency (Hz)", fontsize = 14, labelpad=3)
+plt.ylabel("Power Spectral Density (m$^2$/ Hz)", fontsize = 14, labelpad = 3)
 plt.xscale('log')
 plt.yscale('log')
-plt.show()
+plt.xlim(xmin = 1E0, xmax = 1E5)
+plt.ylim(ymax = 1E-19)
+plt.annotate('$f_c$', xy=(367, 29), xycoords='figure pixels', fontsize = 14)
+plt.annotate('$S_0$', xy=(55, 333), xycoords='figure pixels', fontsize = 14)
+plt.xticks(size = 14)
+plt.yticks(size = 14)
+plt.savefig('psd_theoretical.pdf')

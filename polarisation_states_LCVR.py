@@ -1,0 +1,110 @@
+import matplotlib.pyplot as plt
+
+def import_data(filename):
+	x = []
+	y = []
+
+	f = open(filename, 'rU')
+	lines=f.readlines()
+	f.close()
+	for l in lines:
+		b = l.split()
+		x.append(float(b[0]))
+		y.append(float(b[1]))
+	return x, y
+
+x2pi, y2pi = import_data('data2pi.txt')
+x3piover2, y3piover2 = import_data('data3piover2.txt')
+x5piover2, y5piover2 = import_data('data5piover2.txt')
+x5piover4, y5piover4 = import_data('data5piover4.txt')
+x7piover4, y7piover4 = import_data('data7piover4.txt')
+x9piover4, y9piover4 = import_data('data9piover4.txt')
+xpi, ypi = import_data('datapi.txt')
+
+
+f = plt.figure()
+f.subplots_adjust(wspace=0)
+
+plt.subplot(1, 7, 3)
+frame1 = plt.gca()
+frame1.axes.get_xaxis().set_ticks([])
+frame1.axes.get_yaxis().set_ticks([])
+plt.plot(x2pi, y2pi, color = 'coral', linewidth = 2)
+plt.arrow(-1, 0, -0.2, 0.0, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.arrow(1, 0, 0.2, 0.0, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.gca().set_aspect('equal')
+plt.xlim(xmin=-1.3, xmax=1.3)
+plt.ylim(ymin=-1.3, ymax=1.3)
+plt.xlabel('$2\pi$')
+
+plt.subplot(1, 7, 5)
+frame1 = plt.gca()
+frame1.axes.get_xaxis().set_ticks([])
+frame1.axes.get_yaxis().set_ticks([])
+plt.plot(x3piover2, y3piover2, color = 'coral', linewidth = 2)
+plt.arrow(x3piover2[int(len(x3piover2)/2)], y3piover2[int(len(x3piover2)/2)], -0.2, 0.0, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.gca().set_aspect('equal')
+plt.xlim(xmin=-1.3, xmax=1.3)
+plt.ylim(ymin=-1.3, ymax=1.3)
+plt.xlabel('$3\pi/2$')
+
+plt.subplot(1, 7, 1)
+frame1 = plt.gca()
+frame1.axes.get_xaxis().set_ticks([])
+frame1.axes.get_yaxis().set_ticks([])
+plt.plot(x5piover2, y5piover2, color = 'coral', linewidth = 2)
+plt.arrow(x5piover2[0], y5piover2[0], 0.2, 0.0, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.gca().set_aspect('equal')
+plt.xlim(xmin=-1.3, xmax=1.3)
+plt.ylim(ymin=-1.3, ymax=1.3)
+plt.xlabel('$5\pi/2$')
+
+plt.subplot(1, 7, 7)
+frame1 = plt.gca()
+frame1.axes.get_xaxis().set_ticks([])
+frame1.axes.get_yaxis().set_ticks([])
+plt.plot(xpi, ypi, color = 'coral', linewidth = 2)
+plt.arrow(0, 1, 0.0, 0.2, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.arrow(0, -1, 0.0, -0.2, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.gca().set_aspect('equal')
+plt.xlim(xmin=-1.3, xmax=1.3)
+plt.ylim(ymin=-1.3, ymax=1.3)
+plt.xlabel('$\pi$')
+
+plt.subplot(1, 7, 6)
+frame1 = plt.gca()
+frame1.axes.get_xaxis().set_ticks([])
+frame1.axes.get_yaxis().set_ticks([])
+plt.plot(x5piover4, y5piover4, color = 'coral', linewidth = 2)
+plt.arrow(x5piover4[int(3*len(x5piover4)/4)], y5piover4[int(3*len(x5piover4)/4)], 0.0, 0.2, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.gca().set_aspect('equal')
+plt.xlim(xmin=-1.3, xmax=1.3)
+plt.ylim(ymin=-1.3, ymax=1.3)
+plt.xlabel('$5\pi/4$')
+
+plt.subplot(1, 7, 4)
+frame1 = plt.gca()
+frame1.axes.get_xaxis().set_ticks([])
+frame1.axes.get_yaxis().set_ticks([])
+plt.plot(x7piover4, y7piover4, color = 'coral', linewidth = 2)
+plt.arrow(x7piover4[int(len(x7piover4)/2)], y7piover4[int(len(x7piover4)/2)], -0.2, 0.0, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.gca().set_aspect('equal')
+plt.xlim(xmin=-1.3, xmax=1.3)
+plt.ylim(ymin=-1.3, ymax=1.3)
+plt.xlabel('$7\pi/4$ \n QWP angle $\phi$ ($\degree$)')
+
+plt.subplot(1, 7, 2)
+frame1 = plt.gca()
+frame1.axes.get_xaxis().set_ticks([])
+frame1.axes.get_yaxis().set_ticks([])
+plt.plot(x9piover4, y9piover4, color = 'coral', linewidth = 2)
+plt.arrow(x9piover4[0], y9piover4[0], 0.2, 0.0, head_width = 0.3, head_length = 0.4, length_includes_head=True, color = 'coral')
+plt.gca().set_aspect('equal')
+plt.xlim(xmin=-1.3, xmax=1.3)
+plt.ylim(ymin=-1.3, ymax=1.3)
+plt.xlabel('$9\pi/4$')
+
+plt.savefig('polarisation_states_LCVR.pdf')
+
+plt.show()
+
