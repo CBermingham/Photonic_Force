@@ -35,6 +35,7 @@ s_data = [9.1, 5.61, 32.6, 66]
 s_error = [0.298, 0.328, 1.42, 0.571]
 p_error = [0.254, 0.611, 1.48, 0.539]
 
+
 #glue cantilever2 data
 # s_data = [-449, -17.6, 106, 69.1]
 # p_data = [197, 4.25, 368, 29.6]
@@ -42,13 +43,22 @@ p_error = [0.254, 0.611, 1.48, 0.539]
 # p_error = [0.97, 0.358, 0.232, 0.355]
 
 
-plt.plot(angles, sfit, 'r--', linewidth = 2)
-plt.plot(anglep, pfit, 'b--', linewidth = 2)
-plt.errorbar(data_angles, s_data, yerr = s_error, color = 'r', label = 's data', fmt = 'o', markersize = 5)
-plt.errorbar(data_angles, p_data, yerr = p_error, color = 'b', label = 'p data', fmt = 'o', markersize = 5)
+plt.plot(angles, sfit, 'r--', linewidth = 2, color = 'mediumseagreen')
+plt.plot(anglep, pfit, 'b--', linewidth = 2, color = 'darkorange')
+plt.errorbar(data_angles, s_data, yerr = s_error, label = 's-polarised', fmt = 'o', markersize = 3, color = 'mediumseagreen')
+plt.errorbar(data_angles, p_data, yerr = p_error, label = 'p-polarised', fmt = 'o', markersize = 3, color = 'darkorange')
 plt.legend()
+plt.axhline(y=max(pfit), color = 'grey', linestyle = '--')
+plt.axhline(y=min(pfit), color = 'grey', linestyle = '--')
+plt.axhline(y=max(sfit), color = 'grey', linestyle = '--')
+plt.arrow(2.5, 0, 0, max(sfit), fc="k", ec="k", head_width=0.1, head_length=5, length_includes_head=True)
+plt.arrow(1, 0, 0, max(pfit), fc="k", ec="k", head_width=0.1, head_length=5, length_includes_head=True)
+plt.arrow(5, 0, 0, min(pfit), fc="k", ec="k", head_width=0.1, head_length=5, length_includes_head=True)
+plt.annotate('$I_{s, max}$', xy=(1,1), xytext=(2.6, max(sfit)-12), size = 14)
+plt.annotate('$I_{pz, max}$', xy=(1,1), xytext=(1.1, max(pfit)-12), size = 14)
+plt.annotate('$I_{px}$', xy=(1,1), xytext=(5.1, min(pfit)-12), size = 14)
 plt.xlabel("Cantilever orientation $\\theta$ ($\degree$)", fontsize=14)
-plt.ylabel("Cantilever displacement (nm)", fontsize=14)
+plt.ylabel("Cantilever deflection (nm)", fontsize=14)
 #plt.ylim(ymin = 0)
 plt.xlim(xmin = 0)
 plt.xticks([0, math.pi/2, math.pi, 3*math.pi/2, 2*math.pi], ['0', '90', '180', '270', '360'], size=14)

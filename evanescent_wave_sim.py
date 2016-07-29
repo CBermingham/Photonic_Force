@@ -49,27 +49,36 @@ def p_intensity(n_i, theta_i, E_p, z, lambda0, phi):
 	pz = pz_intensity(n_i, theta_i, E_p, z, lambda0, phi)
 	return px+pz
 
-# I1 = [math.exp(-i/decay_length(45, 1.518, 660E-9)) for i in x]
-# I2 = [math.exp(-i/decay_length(45, 1.518, 642E-9)) for i in x]
-# I3 = [math.exp(-i/decay_length(45, 1.518, 561E-9)) for i in x]
-# I4 = [math.exp(-i/decay_length(45, 1.518, 488E-9)) for i in x]
+I1 = [math.exp(-i/decay_length(42, 1.52, 660E-9)) for i in x]
+I5 = [math.exp(-i/decay_length(44, 1.52, 660E-9)) for i in x]
+I6 = [math.exp(-i/decay_length(50, 1.52, 660E-9)) for i in x]
+I2 = [math.exp(-i/decay_length(42, 1.52, 642E-9)) for i in x]
+I3 = [math.exp(-i/decay_length(42, 1.52, 561E-9)) for i in x]
+I4 = [math.exp(-i/decay_length(42, 1.52, 488E-9)) for i in x]
 
-# print decay_length(45, 1.518, 660E-9)
-# print decay_length(45, 1.518, 561E-9)
-# print decay_length(45, 1.518, 488E-9)
+print decay_length(42, 1.52, 660E-9)
+print decay_length(44, 1.52, 488E-9)
+print decay_length(50, 1.52, 488E-9)
+print decay_length(42, 1.52, 561E-9)
+print decay_length(42, 1.52, 488E-9)
+print crit_angle(1.52)
 
-# x=[i*1E9 for i in x]
+x=[i*1E9 for i in x]
 
-# plt.plot(x, I1, color='r', label='$\lambda$=660nm ($\delta$= 135nm)')
-# #plt.plot(x, I2, color = 'r')
-# plt.plot(x, I3, color = 'g', label='$\lambda$=561nm ($\delta$=114 nm)')
-# plt.plot(x, I4, color = 'b', label='$\lambda$=488nm ($\delta$=100 nm)')
-# plt.xlabel('Height above surface / nm')
-# plt.ylabel('$I/I_0$')
-# plt.title('Evanescent field intensity for n(glass) = 1.518 and incident angle = 45 degrees')
-# plt.legend()
-
-# plt.show()
+plt.plot(x, I1, color='r', label='$\lambda$=660nm, $\\theta_i$=42$\degree$ ($\delta$=283 nm)')
+plt.plot(x, I5, color='r', linestyle = 'dashed', label='$\lambda$=660nm, $\\theta_i$=44$\degree$ ($\delta$=115 nm)')
+plt.plot(x, I6, color='r', linestyle = 'dotted', label='$\lambda$=660nm, $\\theta_i$=50$\degree$ ($\delta$=65 nm)')
+#plt.plot(x, I2, color = 'r')
+plt.plot(x, I3, color = 'g', label='$\lambda$=561nm, $\\theta_i$=42$\degree$ ($\delta$=241 nm)')
+plt.plot(x, I4, color = 'b', label='$\lambda$=488nm, $\\theta_i$=42$\degree$ ($\delta$=209 nm)')
+plt.xlabel('Height above surface / nm', size = 14)
+plt.ylabel('$I/I_0$', size = 14)
+plt.xticks(fontsize = 14)
+plt.yticks(fontsize = 14)
+#plt.title('Evanescent field intensity for n(glass) = 1.518 and incident angle = 45 degrees')
+plt.legend(fontsize = 14)
+plt.savefig('example_decay_lengths.pdf')
+plt.show()
 
 
 # x=range(int(round(crit_angle(n))), 9000)
@@ -99,32 +108,32 @@ def p_intensity(n_i, theta_i, E_p, z, lambda0, phi):
 
 # plt.show()
 
-n=1.518
-wavelength = 660E-9
-angle_i = 45
-height = 0
+# n=1.518
+# wavelength = 660E-9
+# angle_i = 45
+# height = 0
 
-x=range(0, 9000)
-x=[i/100.0 for i in x]
-Is = []
-Ip = []
-for i in x:
-	Is.append(ts_squared(n, i))
-	Ip.append(tp_squared(n, i))
+# x=range(0, 9000)
+# x=[i/100.0 for i in x]
+# Is = []
+# Ip = []
+# for i in x:
+# 	Is.append(ts_squared(n, i))
+# 	Ip.append(tp_squared(n, i))
 
-print crit_angle(n)
+# print crit_angle(n)
 
-plt.plot(x, Is, label = 's-polarised', color = 'm', linewidth = 2)
-plt.plot(x, Ip, label = 'p-polarised', color = 'c', linewidth = 2)
-plt.axvline(crit_angle(n), 0, 1, color = 'k', linewidth = 1, linestyle = '--')
-plt.legend()
-plt.xlabel('Angle of incidence / degrees', fontsize = 14)
-plt.ylabel('$I_t(x=0)$ / $I_i(x=0)$', fontsize = 14)
-plt.xticks(size = 14)
-plt.yticks(size = 14)
-plt.savefig('Intensity_ratio_at_interface.pdf')
+# plt.plot(x, Is, label = 's-polarised', color = 'm', linewidth = 2)
+# plt.plot(x, Ip, label = 'p-polarised', color = 'c', linewidth = 2)
+# plt.axvline(crit_angle(n), 0, 1, color = 'k', linewidth = 1, linestyle = '--')
+# plt.legend()
+# plt.xlabel('Angle of incidence / degrees', fontsize = 14)
+# plt.ylabel('$I_t(x=0)$ / $I_i(x=0)$', fontsize = 14)
+# plt.xticks(size = 14)
+# plt.yticks(size = 14)
+# plt.savefig('Intensity_ratio_at_interface.pdf')
 
-plt.show()
+# plt.show()
 
 
 
