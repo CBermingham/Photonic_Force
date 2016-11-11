@@ -54,9 +54,9 @@ def fit_data(filename, cutoff):
 	return z1, sum1, fit, I0, delta, angle, errorI0
 
 
-z1, sum1, fit1, I01, delta1, angle1, errorI01 = fit_data("/Users/Charlotte/Documents/Tip_shape/ITO/ITO_exp_run1.csv", 6)
-z2, sum2, fit2, I02, delta2, angle2, errorI02 = fit_data("/Users/Charlotte/Documents/Tip_shape/ITO/ITO_exp_run2.csv", 15)
-z3, sum3, fit3, I03, delta3, angle3, errorI03 = fit_data("/Users/Charlotte/Documents/Tip_shape/ITO/ITO_exp_run3.csv", 10)
+z1, sum1, fit1, I01, delta1, angle1, errorI01 = fit_data("/Users/Charlotte/Documents/Tip_shape/Glass/exp_field_1.csv", 6)
+z2, sum2, fit2, I02, delta2, angle2, errorI02 = fit_data("/Users/Charlotte/Documents/Tip_shape/Glass/exp_field_2.csv", 15)
+z3, sum3, fit3, I03, delta3, angle3, errorI03 = fit_data("/Users/Charlotte/Documents/Tip_shape/Glass/exp_field_3.csv", 10)
 # z4, sum4, fit4, I04, delta4, angle4, errorI04 = fit_data("/Users/Charlotte/Documents/PhD/Data/160323_144616.csv", 8)
 # z5, sum5, fit5, I05, delta5, angle5, errorI05 = fit_data("/Users/Charlotte/Documents/PhD/Data/160323_145522.csv", 14)
 # z6, sum6, fit6, I06, delta6, angle6, errorI06 = fit_data("/Users/Charlotte/Documents/PhD/Data/160323_145942.csv", 7)
@@ -134,13 +134,13 @@ plt.show()
 # plt.xticks(size = 14)
 # plt.yticks(size = 14)
 # plt.savefig("angle_and_I0.pdf")
-
-# norm_I_1 = [np.exp(sum1[k])-(I01*np.exp(-z1[k]/delta1)) for k in range(0, len(sum1))]
-# plt.plot(z1, norm_I_1, color = 'darkorange', label = "%.1f$\degree$" % angle1, zorder = 1)
-# norm_I_2 = [np.exp(sum2[k])-(I02*np.exp(-z2[k]/delta2)) for k in range(0, len(sum2))]
-# plt.plot(z2, norm_I_2, color = 'g', label = "%.1f$\degree$" % angle2, zorder = 0)
-# norm_I_3 = [np.exp(sum3[k])-(I03*np.exp(-z3[k]/delta3)) for k in range(0, len(sum3))]
-# plt.plot(z3, norm_I_3, color = 'purple', label = "%.1f$\degree$" % angle3, zorder = 2)
+plt.figure(tight_layout = True)
+norm_I_1 = [np.exp(sum1[k])-(I01*np.exp(-z1[k]/delta1)) for k in range(0, len(sum1))]
+plt.plot(z1, norm_I_1, color = 'darkorange', label = "%.1f$\degree$" % angle1, zorder = 1)
+norm_I_2 = [np.exp(sum2[k])-(I02*np.exp(-z2[k]/delta2)) for k in range(0, len(sum2))]
+plt.plot(z2, norm_I_2, color = 'g', label = "%.1f$\degree$" % angle2, zorder = 0)
+norm_I_3 = [np.exp(sum3[k])-(I03*np.exp(-z3[k]/delta3)) for k in range(0, len(sum3))]
+plt.plot(z3, norm_I_3, color = 'purple', label = "%.1f$\degree$" % angle3, zorder = 2)
 # # norm_I_4 = [np.exp(sum4[k])-(I04*np.exp(-z4[k]/delta4)) for k in range(0, len(sum4))]
 # # plt.plot(z4, norm_I_4, color = 'g', label = "%.1f$\degree$" % angle4, zorder = 3)
 # # norm_I_5 = [np.exp(sum5[k])-(I05*np.exp(-z5[k]/delta5)) for k in range(0, len(sum5))]
@@ -149,12 +149,12 @@ plt.show()
 # # plt.plot(z6, norm_I_6, color = 'indigo', label = "%.1f$\degree$" % angle6, zorder = 5)
 
 
-# plt.xlabel("z (nm)", size = 14)
-# plt.ylabel("Normlised intensity", size = 14)
-# plt.xlim(xmin = 0)
-# plt.xticks(size = 14)
-# plt.yticks(size = 14)
-# plt.savefig("normalised_intensity_tip_shape_ITO.pdf")
+plt.xlabel("z (nm)", size = 24)
+plt.ylabel("Normlised intensity", size = 24)
+plt.xlim(xmin = 0)
+plt.xticks(size = 24)
+plt.yticks(size = 24)
+plt.savefig("normalised_intensity_tip_shape.pdf")
 
-# plt.show()
+plt.show()
 

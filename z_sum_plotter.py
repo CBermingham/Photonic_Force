@@ -62,6 +62,14 @@ z5, sum5, fit5, I05, delta5, angle5, errorI05 = fit_data("/Users/Charlotte/Docum
 z6, sum6, fit6, I06, delta6, angle6, errorI06 = fit_data("/Users/Charlotte/Documents/PhD/Data/160323_145942.csv", 7)
 z7, sum7, fit7, I07, delta7, angle7, errorI07 = fit_data("/Users/Charlotte/Documents/PhD/Data/160323_143215.csv", 10)
 
+# z1, sum1, fit1, I01, delta1, angle1, errorI01 = fit_data("/Users/Charlotte/Documents/PhD/Data/160324_133504.csv", 6)
+# z2, sum2, fit2, I02, delta2, angle2, errorI02 = fit_data("/Users/Charlotte/Documents/PhD/Data/160324_130523.csv", 15)
+# z3, sum3, fit3, I03, delta3, angle3, errorI03 = fit_data("/Users/Charlotte/Documents/PhD/Data/160324_132006.csv", 10)
+# z4, sum4, fit4, I04, delta4, angle4, errorI04 = fit_data("/Users/Charlotte/Documents/PhD/Data/160324_132514.csv", 8)
+# z5, sum5, fit5, I05, delta5, angle5, errorI05 = fit_data("/Users/Charlotte/Documents/PhD/Data/160324_132021.csv", 14)
+# z6, sum6, fit6, I06, delta6, angle6, errorI06 = fit_data("/Users/Charlotte/Documents/PhD/Data/160324_133504.csv", 7)
+# z7, sum7, fit7, I07, delta7, angle7, errorI07 = fit_data("/Users/Charlotte/Documents/PhD/Data/160324_133958.csv", 10)
+
 
 angles = np.array([angle1, angle2, angle3, angle4, angle5, angle6, angle7])
 print angles
@@ -76,17 +84,17 @@ fitnew = [linear_function(i, popt1[0], popt1[1]) for i in xvalues]
 
 # plt.scatter(z1, sum1, color = 'r', s = 3, label = "%.1f$\degree$" % angle1)
 # plt.plot(z1, fit1, color = 'r')
-# plt.scatter(z2, sum2, color = 'r', s = 3, label = "%.1f$\degree$" % angle2)
+plt.scatter(z2, sum2, color = 'r', s = 5)
 # plt.plot(z2, fit2, color = 'r')
-# plt.scatter(z7, sum7, color = 'darkorange', s = 3, label = "%.1f$\degree$" % angle7)
+plt.scatter(z7, sum7, color = 'darkorange', s = 5)
 # plt.plot(z7, fit7, color = 'darkorange')
-# plt.scatter(z3, sum3, color = 'gold', s = 3, label = "%.1f$\degree$" % angle3)
+plt.scatter(z3, sum3, color = 'gold', s = 5)
 # plt.plot(z3, fit3, color = 'gold')
-# plt.scatter(z4, sum4, color = 'g', s = 3, label = "%.1f$\degree$" % angle4)
+plt.scatter(z4, sum4, color = 'g', s = 5)
 # plt.plot(z4, fit4, color = 'g')
-# plt.scatter(z5, sum5, color = 'b', s = 3, label = "%.1f$\degree$" % angle5)
+plt.scatter(z5, sum5, color = 'b', s = 5)
 # plt.plot(z5, fit5, color  = 'b')
-# plt.scatter(z6, sum6, color = 'purple', s = 3, label = "%.1f$\degree$" % angle6)
+plt.scatter(z6, sum6, color = 'purple', s = 5)
 # plt.plot(z6, fit6, color = 'purple')
 # plt.legend()
 # plt.xlabel("Distance above surface / nm", fontsize = 14)
@@ -98,27 +106,27 @@ fitnew = [linear_function(i, popt1[0], popt1[1]) for i in xvalues]
 # # plt.savefig("Multiple_scattering.pdf")
 # plt.show()
 
-# plt.plot(z2, sum2, color = 'r', label = "%.1f$\degree$" % angle2)
-# plt.plot(z2, fit2, color = 'r', linestyle = '--')
-# plt.plot(z7, sum7, color = 'darkorange', label = "%.1f$\degree$" % angle7)
-# plt.plot(z7, fit7, color = 'darkorange', linestyle = '--')
-# plt.plot(z3, sum3, color = 'gold', label = "%.1f$\degree$" % angle3)
-# plt.plot(z3, fit3, color = 'gold', linestyle = '--')
-# plt.plot(z4, sum4, color = 'g', label = "%.1f$\degree$" % angle4)
-# plt.plot(z4, fit4, color = 'g', linestyle = '--')
-# plt.plot(z5, sum5, color = 'b', label = "%.1f$\degree$" % angle5)
-# plt.plot(z5, fit5, color  = 'b', linestyle = '--')
-# plt.plot(z6, sum6, color = 'purple', label = "%.1f$\degree$" % angle6)
-# plt.plot(z6, fit6, color = 'purple', linestyle = '--')
-# plt.legend()
-# plt.xlabel("Distance above surface / nm", fontsize = 14)
-# plt.ylabel("ln(Intensity)", fontsize = 14)
-# plt.xlim(xmin = 0)
-# plt.xticks(size = 14)
-# plt.yticks(size = 14)
+plt.plot(z2, sum2, color = 'r', label = "%.1f$\degree$" % angle2)
+plt.plot(z2, fit2, color = 'r', linestyle = '--')
+plt.plot(z7, sum7, color = 'darkorange', label = "%.1f$\degree$" % angle7)
+plt.plot(z7, fit7, color = 'darkorange', linestyle = '--')
+plt.plot(z3, sum3, color = 'gold', label = "%.1f$\degree$" % angle3)
+plt.plot(z3, fit3, color = 'gold', linestyle = '--')
+plt.plot(z4, sum4, color = 'g', label = "%.1f$\degree$" % angle4)
+plt.plot(z4, fit4, color = 'g', linestyle = '--')
+plt.plot(z5, sum5, color = 'b', label = "%.1f$\degree$" % angle5)
+plt.plot(z5, fit5, color  = 'b', linestyle = '--')
+plt.plot(z6, sum6, color = 'purple', label = "%.1f$\degree$" % angle6)
+plt.plot(z6, fit6, color = 'purple', linestyle = '--')
+plt.legend()
+plt.xlabel("Distance above surface / nm", fontsize = 14)
+plt.ylabel("ln(Intensity)", fontsize = 14)
+plt.xlim(xmin = 0)
+plt.xticks(size = 14)
+plt.yticks(size = 14)
 # plt.savefig('multiple_scattering_with_fit_to_all.pdf')
-# plt.savefig("Multiple_scattering.pdf")
-# plt.show()
+#plt.savefig("Multiple_scattering_ITO.pdf")
+plt.show()
 
 # plt.errorbar(angles[1:], I0[1:], yerr = errors[1:],  color = 'm', fmt='o')
 # plt.plot(xvalues, fitnew, color = 'm', linestyle = '--')
@@ -128,24 +136,26 @@ fitnew = [linear_function(i, popt1[0], popt1[1]) for i in xvalues]
 # plt.yticks(size = 14)
 # plt.savefig("angle_and_I0.pdf")
 
-
-norm_I_2 = [np.exp(sum2[k])-(I02*np.exp(-z2[k]/delta2)) for k in range(0, len(sum2))]
+plt.figure(tight_layout = True)
+norm_I_2 = [np.exp(sum2[k])/(I02*np.exp(-z2[k]/delta2)) for k in range(0, len(sum2))]
 plt.plot(z2, norm_I_2, color = 'r', label = "%.1f$\degree$" % angle2, zorder = 0)
-norm_I_7 = [np.exp(sum7[k])-(I07*np.exp(-z7[k]/delta7)) for k in range(0, len(sum7))]
+norm_I_7 = [np.exp(sum7[k])/(I07*np.exp(-z7[k]/delta7)) for k in range(0, len(sum7))]
 plt.plot(z7, norm_I_7, color = 'darkorange', label = "%.1f$\degree$" % angle7, zorder = 1)
-norm_I_3 = [np.exp(sum3[k])-(I03*np.exp(-z3[k]/delta3)) for k in range(0, len(sum3))]
+norm_I_3 = [np.exp(sum3[k])/(I03*np.exp(-z3[k]/delta3)) for k in range(0, len(sum3))]
 plt.plot(z3, norm_I_3, color = 'gold', label = "%.1f$\degree$" % angle3, zorder = 2)
-norm_I_4 = [np.exp(sum4[k])-(I04*np.exp(-z4[k]/delta4)) for k in range(0, len(sum4))]
+norm_I_4 = [np.exp(sum4[k])/(I04*np.exp(-z4[k]/delta4)) for k in range(0, len(sum4))]
 plt.plot(z4, norm_I_4, color = 'g', label = "%.1f$\degree$" % angle4, zorder = 3)
-norm_I_5 = [np.exp(sum5[k])-(I05*np.exp(-z5[k]/delta5)) for k in range(0, len(sum5))]
+norm_I_5 = [np.exp(sum5[k])/(I05*np.exp(-z5[k]/delta5)) for k in range(0, len(sum5))]
 plt.plot(z5, norm_I_5, color = 'b', label = "%.1f$\degree$" % angle5, zorder = 4)
-norm_I_6 = [np.exp(sum6[k])-(I06*np.exp(-z6[k]/delta6)) for k in range(0, len(sum6))]
+norm_I_6 = [np.exp(sum6[k])/(I06*np.exp(-z6[k]/delta6)) for k in range(0, len(sum6))]
 plt.plot(z6, norm_I_6, color = 'indigo', label = "%.1f$\degree$" % angle6, zorder = 5)
 
 
-plt.xlabel("z (nm)")
-plt.ylabel("Normlised intensity")
+plt.xlabel("z (nm)", size = 24)
+plt.ylabel("Normlised intensity", size = 24)
 plt.xlim(xmin = 0)
+plt.xticks(size = 24)
+plt.yticks(size = 24)
 plt.savefig("normalised_intensity.pdf")
 
 plt.show()

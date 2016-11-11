@@ -135,15 +135,49 @@ errforce4 = [math.sqrt((a/b)**2+(c/d)**2)*abs(e) for a,b,c,d,e in zip(error4, di
 # plt.savefig("Cantilever_combined_force_simple.pdf", size = 14)
 # plt.show()
 
-labels = ["A", "B", "C", "D", "E", "F", "H", "J"]
+labels = ["A", "B", "C", "D"]
 
-plt.bar([i+0.2 for i in pos1], sum1, 0.3, color = 'c', label = "0 degrees")
-plt.bar([i+0.5 for i in pos4], sum4, 0.3, color = 'm', label = "180 degrees")
+plt.bar([0.2, 1.2, 2.2, 3.2], [force1[0], force1[3], force1[6], force1[7]], 0.3, color = 'c', yerr = [errforce1[0], errforce1[3], errforce1[6], errforce1[7]], ecolor = 'k',  label = "0 degrees")
+plt.bar([0.5, 1.5, 2.5, 3.5], [force4[0], force4[3], force4[6], force4[7]], 0.3, color = 'm', yerr = [errforce4[0], errforce4[3], errforce4[6], errforce4[7]], ecolor = 'k',  label = "180 degrees")
+# plt.bar([i+0.4 for i in pos2], force2, 0.2, color = 'm', yerr = errforce2, ecolor = 'k',  label = "180 degrees")
+# plt.bar([i+0.6 for i in pos3], force3, 0.2, color = 'm', yerr = errforce3, ecolor = 'k')
+plt.yticks(size = 14)
+plt.xticks([0.5, 1.5, 2.5, 3.5], labels, size = 14)
+plt.ylabel("Force (pN)", size = 14)
+plt.legend(loc = 2, fontsize = 14)
+
+ax = plt.gca()
+ax.xaxis.set_major_locator(plt.NullLocator())
+ax.text(0.55, 0.5, "A")
+ax.text(1.55, 0.5, "B")
+ax.text(2.55, 0.5, "C")
+ax.text(3.55, 0.5, "D")
+
+plt.savefig("Cantilever_combined_force_simple2.pdf", size = 14)
+plt.show()
+
+# labels = ["A", "B", "C", "D", "E", "F", "H", "J"]
+
+# plt.bar([i+0.2 for i in pos1], sum1, 0.3, color = 'c', label = "0 degrees")
+# plt.bar([i+0.5 for i in pos4], sum4, 0.3, color = 'm', label = "180 degrees")
+# # plt.bar([i+0.4 for i in pos2], sum2, 0.2, color = 'm', label = "180 degrees")
+# # plt.bar([i+0.6 for i in pos3], sum3, 0.2, color = 'm', label = "180 degrees")
+# plt.yticks(size = 14)
+# plt.ylabel("Intensity (a.u.)", size = 14)
+# plt.legend(loc = 1, fontsize = 14)
+# plt.xticks([i+0.5 for i in pos1], labels)
+# #plt.savefig("Cantilever_combined_sum.pdf", size = 14)
+# plt.show()
+
+labels = ["A", "B", "C", "D"]
+
+plt.bar([0.2, 1.2, 2.2, 3.2], [sum1[0], sum1[3], sum1[6], sum1[7]], 0.3, color = 'c', label = "0 degrees")
+plt.bar([0.5, 1.5, 2.5, 3.5], [sum4[0], sum4[3], sum4[6], sum4[7]], 0.3, color = 'm', label = "180 degrees")
 # plt.bar([i+0.4 for i in pos2], sum2, 0.2, color = 'm', label = "180 degrees")
 # plt.bar([i+0.6 for i in pos3], sum3, 0.2, color = 'm', label = "180 degrees")
 plt.yticks(size = 14)
 plt.ylabel("Intensity (a.u.)", size = 14)
 plt.legend(loc = 1, fontsize = 14)
-plt.xticks([i+0.5 for i in pos1], labels)
-plt.savefig("Cantilever_combined_sum.pdf", size = 14)
+plt.xticks([0.5, 1.5, 2.5, 3.5], labels)
+plt.savefig("Cantilever_combined_sum2.pdf", size = 14)
 plt.show()
